@@ -11,7 +11,7 @@ except KeyError:
     print("Error: 'GEMINI_API_KEY' not found in environment variables.")
     exit()
 
-# 1. Define a helper function to get the vector
+# Returns Vector
 def get_embedding(text):
     result = genai.embed_content(
         model="models/text-embedding-004",
@@ -19,7 +19,7 @@ def get_embedding(text):
     )
     return result['embedding']
 
-# 2. Define the Cosine Similarity function
+# Define the Cosine Similarity function
 def cosine_similarity(v1, v2):
     # Convert lists to numpy arrays
     v1 = np.array(v1)
@@ -36,17 +36,17 @@ def cosine_similarity(v1, v2):
 
     return dot_product / (magnitude_v1 * magnitude_v2)
 
-# 3. The Data: 3 sentences
+# The Data: 3 sentences
 text_1 = "I love writing Python code."
 text_2 = "Programming is my favorite hobby."  # Similar to 1
 text_3 = "This pizza tastes delicious."       # Different from 1 & 2
 
-# 4. Generate Embeddings
+# Generate Embeddings
 vec_1 = get_embedding(text_1)
 vec_2 = get_embedding(text_2)
 vec_3 = get_embedding(text_3)
 
-# 5. Compare them
+# Compare them
 similarity_1_2 = cosine_similarity(vec_1, vec_2) # Coding vs Programming
 similarity_1_3 = cosine_similarity(vec_1, vec_3) # Coding vs Pizza
 
