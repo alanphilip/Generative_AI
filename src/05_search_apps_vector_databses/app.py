@@ -4,17 +4,20 @@ import numpy as np
 import google.generativeai as genai
 from dotenv import load_dotenv
 
+# Setup
 load_dotenv()
-
-# Configure the Gemini API
-genai.configure(api_key=os.environ['GOOGLE_API_KEY'])
+try:
+    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+except KeyError:
+    print("Error: 'GEMINI_API_KEY' not found in environment variables.")
+    exit()
 
 # Select the embedding model
 # "models/text-embedding-004" is a common choice, but "models/embedding-001" is also available
 MODEL_NAME = "models/text-embedding-004"
 
-SIMILARITIES_RESULTS_THRESHOLD = 0.75
-DATASET_NAME = "../embedding_index_3m.json"
+SIMILARITIES_RESULTS_THRESHOLD = 0.55
+DATASET_NAME = "embedding_index_gemini.json"
 
 def load_dataset(source: str) -> pd.DataFrame:
     """Load the video session index"""
@@ -55,8 +58,8 @@ def get_videos(query: str, dataset: pd.DataFrame, rows: int) -> pd.DataFrame:
     query_embeddings = result['embedding']
 
     # Create a new column with the calculated similarity for each row
-    # Note: Ensure the vector column name matches your dataset (e.g., 'ada_v2' or 'gemini_vector')
-    video_vectors["similarity"] = video_vectors["ada_v2"].apply(
+    # Note: Ensure the vector column name matches your dataset (e.g., 'gemini_vector')
+    video_vectors["similarity"] = video_vectors["gemini_vector"].apply(
         lambda x: cosine_similarity(np.array(query_embeddings), np.array(x))
     )
 
