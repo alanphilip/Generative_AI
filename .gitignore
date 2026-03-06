@@ -9,8 +9,8 @@
 # Exclude files and dir's
 notes.txt
 os_check.py
-models_check.py
-models.py
+src/models_check.py
+src/models.py
 *.json
 *.xml
 
