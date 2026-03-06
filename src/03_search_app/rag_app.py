@@ -11,8 +11,7 @@ except KeyError:
     print("Error: 'GEMINI_API_KEY' not found in environment variables.")
     exit()
 
-# 2. The Knowledge Base (Our "External Memory")
-# Notice specific details here that the AI wouldn't know otherwise.
+# The Knowledge Base (Our "External Memory")
 documents = [
     "Project Apollo 11 was the spaceflight that first landed humans on the Moon.",
     "The internal wifi password for the guest network is 'BlueSky99!'.",
@@ -20,7 +19,7 @@ documents = [
     "The cafeteria serves taco tuesday every week at 12:00 PM."
 ]
 
-# 3. Retrieval System (From previous step)
+# Retrieval System (From previous step)
 def get_embedding(text):
     return genai.embed_content(model="models/text-embedding-004", content=text)['embedding']
 
@@ -39,17 +38,17 @@ def find_best_match(query, docs):
             highest_score = score
             best_doc = doc
 
+    # print(highest_score)
     return best_doc
 
-# 4. The Generation Step (The "Augmented" part)
+# The Generation Step (The "Augmented" part)
 def generate_answer(query):
     # Step A: Retrieve relevant context
     print(f"Searching knowledge base for: '{query}'...")
     relevant_context = find_best_match(query, documents)
     print(f"Found context: \"{relevant_context}\"\n")
 
-    # Step B: Construct the Prompt
-    # We literally paste the retrieved text into the prompt instructions.
+    # Construct the Prompt
     prompt = f"""
     You are a helpful assistant. 
     Answer the user's question using ONLY the context provided below.
@@ -62,13 +61,12 @@ def generate_answer(query):
     {query}
     """
 
-    # Step C: Generate response using the Chat Model
+    # Generate response using the Chat Model
     model = genai.GenerativeModel('gemini-2.0-flash')
     response = model.generate_content(prompt)
 
     return response.text
 
-# 5. Run it
 # Ask a question that requires the private data
-answer = generate_answer("How do I reset the robot?")
+answer = generate_answer("what's the weather today?")
 print(f"AI Answer:\n{answer}")
