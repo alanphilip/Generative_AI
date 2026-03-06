@@ -1,9 +1,12 @@
 openai
 python-dotenv
-google-generativeai
+google-genai
 numpy
+pandas
+tqdm
+pillow
 
 #matplotlib
 #plotly
 #scikit-learn
-#pandas
+#pip install google-genai numpy

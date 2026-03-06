@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/gemini_ai_project.iml" filepath="$PROJECT_DIR$/gemini_ai_project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Generative_AI.iml" filepath="$PROJECT_DIR$/Generative_AI.iml" />
     </modules>
   </component>
 </project>
