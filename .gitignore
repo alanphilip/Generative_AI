@@ -1,5 +1,6 @@
 # Exclude intellij files
 .idea
+.idea/modules.xml
 
 # Exclude environment files
 .env
@@ -12,3 +13,4 @@ models_check.py
 models.py
 *.json
 *.xml
+
